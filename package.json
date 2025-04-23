@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "nodemon -e js,html,css,njk,json index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +14,7 @@
   "dependencies": {
     "connect-sqlite3": "^0.9.15",
     "express": "^5.1.0",
+    "nunjucks": "^3.2.4",
     "sequelize": "^6.37.7"
   }
 }
