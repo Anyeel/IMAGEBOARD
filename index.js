@@ -1,6 +1,7 @@
 import express from 'express';
 import nunjucks from 'nunjucks';
 import { User } from './models/user.js';
+import userRoutes from './router/users.js';
 
 const app = express();
 
@@ -11,7 +12,12 @@ const env = nunjucks.configure('views', {
   express: app
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.set ('view engine', 'njk');
+
+app.use("/users", userRoutes);
 
 app.get('/', async (req, res) => {
   const usersRaw = await User.findAll();
@@ -22,6 +28,7 @@ app.get('/', async (req, res) => {
       password: user.password
     }
   });
+
   res.render('test', {
       title: "Test nunjucks",
       desc: "Testing my nunjucks template engine",
