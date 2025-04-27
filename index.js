@@ -29,11 +29,19 @@ app.get('/', async (req, res) => {
     }
   });
 
-  res.render('test', {
+  res.render('table', {
       title: "Test nunjucks",
       desc: "Testing my nunjucks template engine",
       users
   });
+});
+
+app.get('/login', async (req, res) => {
+  res.render('login', {});
+});
+
+app.get('/register', async (req, res) => {
+  res.render('register', {});
 });
 
 app.listen(port, () => {
