@@ -2,8 +2,12 @@ import express from 'express';
 import nunjucks from 'nunjucks';
 import { User } from './models/user.js';
 import userRoutes from './router/users.js';
+import pagesRoutes from './router/pages.js';
+import { loggerBasic, loggerCustom } from './middleware/log.js';
 
 const app = express();
+
+app.use(loggerCustom);
 
 const port = 3000;
 
@@ -18,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set ('view engine', 'njk');
 
 app.use("/users", userRoutes);
+app.use("/", pagesRoutes);
 
 app.get('/', async (req, res) => {
   const usersRaw = await User.findAll();
@@ -38,10 +43,6 @@ app.get('/', async (req, res) => {
 
 app.get('/login', async (req, res) => {
   res.render('login', {});
-});
-
-app.get('/register', async (req, res) => {
-  res.render('register', {});
 });
 
 app.listen(port, () => {

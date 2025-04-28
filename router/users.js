@@ -1,5 +1,5 @@
-import express from 'express';
 import { User } from '../models/user.js';
+import express from 'express';
 import bcrypt from 'bcrypt';
 
 const router = express.Router();
@@ -15,15 +15,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const username = req.body.name;
-    const password = req.body.password;
-
-    await User.create({
-        name: username,
-        password: password,
+    const {name, password} = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+        name: name,
+        password: hashedPassword,
     });
-    res.json({"message": "User created"});
+    res.status(201).json(user);
 });
-
 
 export default router;
