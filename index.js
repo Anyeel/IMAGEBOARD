@@ -1,15 +1,39 @@
 import express from 'express';
 import nunjucks from 'nunjucks';
 import { User } from './models/user.js';
-import userRoutes from './router/users.js';
-import pagesRoutes from './router/pages.js';
+import userRouter from './router/users.js';
+import pagesRouter from './router/pages.js';
+import authRoutes from './router/auth.js';
 import { loggerBasic, loggerCustom } from './middleware/log.js';
+import session from 'express-session';
+import SQLitestore from 'connect-sqlite3';
+
 
 const app = express();
 
 app.use(loggerCustom);
 
 const port = 3000;
+const SQLiteStoreSession = SQLitestore(session);
+
+const sessionStore = new SQLiteStoreSession({
+  db: 'sessions.sqlite',
+  dir: './db',
+  table: 'sessions',
+  dir: './db'
+});
+
+const sessionConfig = {
+  store: sessionStore,
+  secret: "1234",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+  }
+}
+
+app.use(session(sessionConfig));
 
 const env = nunjucks.configure('views', {
   autoescape: true,
@@ -21,8 +45,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set ('view engine', 'njk');
 
-app.use("/users", userRoutes);
-app.use("/", pagesRoutes);
+app.use("/users", userRouter);
+app.use("/", pagesRouter);
+app.use("/", authRoutes);
+
 
 app.get('/', async (req, res) => {
   const usersRaw = await User.findAll();
@@ -39,10 +65,6 @@ app.get('/', async (req, res) => {
       desc: "Testing my nunjucks template engine",
       users
   });
-});
-
-app.get('/login', async (req, res) => {
-  res.render('login', {});
 });
 
 app.listen(port, () => {

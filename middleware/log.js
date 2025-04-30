@@ -14,12 +14,7 @@ const loggerCustom = morgan((tokens, req, res) => {
     const responseTime = tokens['response-time'](req, res);
     const date = new Date().toISOString();
 
-    // Change method color based on type
-    const coloredMethod = method === "GET" 
-        ? chalk.blue(method) 
-        : method === "POST" 
-        ? chalk.green(method) 
-        : chalk.white(method);
+    const coloredMethod = method === "GET" ? chalk.blue(method) : method === "POST" ? chalk.green(method) : chalk.red(method);
 
     let log = "";
     log += `➤ ${coloredMethod} ${url} ${status}\n`;
