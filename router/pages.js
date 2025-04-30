@@ -1,4 +1,5 @@
 import express from 'express';
+import { isAuthenticated } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/login', async (req, res) => {
     });
 });
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', isAuthenticated, (req, res) => {
     res.render('profile', {
         title: "Profile",
         desc: "Your profile page",
