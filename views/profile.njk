@@ -5,4 +5,8 @@
     {{ Title }}
     <p>Welcome, {{ user }}.</p>
 
+    <form action="/logout" method="POST">
+        <button type="submit">Log Out</button>
+    </form>
+    
 {% endblock %}

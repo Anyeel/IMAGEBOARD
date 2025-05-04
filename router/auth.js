@@ -20,5 +20,14 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.post('/logout', (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            return res.status(500).send(error);
+        }
+        res.redirect('/login');
+    });
+});
+
 export default router;
 
