@@ -12,10 +12,6 @@ const app = express();
 
 app.use(loggerCustom);
 
-import "./db/init.js";
-import "./db/associations.js";
-import "./db/populate.js";
-
 const port = 3000;
 const SQLiteStoreSession = SQLitestore(session);
 

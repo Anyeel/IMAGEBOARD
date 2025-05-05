@@ -9,7 +9,7 @@ const populateUsers = async () => {
         const hashedPassword = await bcrypt.hash(user+"pass", 10);
         
         await User.create({
-            username: user,
+            name: user,
             password: hashedPassword
         })
     }
