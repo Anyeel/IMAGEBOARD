@@ -7,8 +7,13 @@ import authRoutes from './router/auth.js';
 import { loggerBasic, loggerCustom } from './middleware/log.js';
 import session from 'express-session';
 import SQLitestore from 'connect-sqlite3';
+import boardsRouter from './router/boards.js';
 
 const app = express();
+
+import "./db/init.js";
+import "./db/associations.js";
+import "./db/populate.js";
 
 app.use(loggerCustom);
 
@@ -45,6 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set ('view engine', 'njk');
 
 app.use("/users", userRouter);
+app.use("/boards", boardsRouter);
 app.use("/", pagesRouter);
 app.use("/", authRoutes);
 
