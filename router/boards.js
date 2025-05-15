@@ -31,7 +31,19 @@ router.post('/', async (req, res) => {
 router.post('/:id/posts', async (req, res) => {
     const { title, content } = req.body;
     const boardId = req.params.id;
-    await Post.create({ title, content, boardId, userId: req.session.userId });
+
+    // Ensure the user is authenticated
+    if (!req.session.userId) {
+        return res.status(401).render('unauthorized', { title: 'Unauthorized' });
+    }
+
+    await Post.create({
+        title,
+        content,
+        boardId,
+        userId: req.session.userId, // Associate the post with the logged-in user
+    });
+
     res.redirect(`/boards/${boardId}`);
 });
 

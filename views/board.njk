@@ -11,9 +11,10 @@
     {% endfor %}
 </ul>
 
+<h2>Send a Message</h2>
 <form action="/boards/{{ board.id }}/posts" method="POST">
     <input type="text" name="title" placeholder="Post Title" required>
     <textarea name="content" placeholder="Post Content" required></textarea>
-    <button type="submit">Create Post</button>
+    <button type="submit">Send Message</button>
 </form>
 {% endblock %}
