@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { sequelize } from '../db/sequelize.js';
+import { sequelize } from '../db/sequelize.js'; // Importa la instancia de Sequelize
 
 export const Post = sequelize.define('Post', {
     id: {
@@ -15,7 +15,7 @@ export const Post = sequelize.define('Post', {
         type: Sequelize.TEXT,
         allowNull: false,
     },
-    image: {
+    image: { // Nuevo campo para la imagen
         type: Sequelize.STRING,
         allowNull: true,
     },
