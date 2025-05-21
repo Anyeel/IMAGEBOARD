@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get('/register', async (req, res) => {
     if (req.session.userId) {
-        // Si el usuario ya está autenticado, redirigir al perfil
         return res.redirect('/profile');
     }
     res.render('register', {
@@ -16,7 +15,6 @@ router.get('/register', async (req, res) => {
 
 router.get('/login', async (req, res) => {
     if (req.session.userId) {
-        // Si el usuario ya está autenticado, redirigir al perfil
         return res.redirect('/profile');
     }
     res.render('login', {

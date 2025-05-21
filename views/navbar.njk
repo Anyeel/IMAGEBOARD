@@ -1,7 +1,7 @@
 <nav>
     <ul>
         <li><a href="/boards">Boards</a></li>
-        {% if session %}
+        {% if session.userId %}
         <li><a href="/profile">Profile</a></li>
         {% else %}
         <li><a href="/login">Login</a></li>
