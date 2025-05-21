@@ -29,7 +29,8 @@ router.get('/profile', isAuthenticated, (req, res) => {
     res.render('profile', {
         title: "Profile",
         desc: "Your profile page",
-        user: req.session.username
+        user: req.session.username,
+        session: req.session
     });
 });
 

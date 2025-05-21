@@ -38,7 +38,7 @@ const env = nunjucks.configure('views', {
   autoescape: true,
   express: app
 });
-
+app.use(express.static('.'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
