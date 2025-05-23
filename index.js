@@ -63,7 +63,8 @@ app.get('/', async (req, res) => {
   res.render('table', {
     title: "Test nunjucks",
     desc: "Testing my nunjucks template engine",
-    users
+    users,
+    session: req.session 
   });
 });
 
