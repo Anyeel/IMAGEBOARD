@@ -55,4 +55,24 @@ router.post('/:id/posts', upload.single('image'), async (req, res) => {
     }
 });
 
+router.post('/', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).render('unauthorized', { 
+            title: 'Unauthorized', 
+            session: req.session 
+        });
+    }
+
+    const { name } = req.body;
+    try {
+        await Board.create({
+            name: name
+        });
+        res.redirect('/boards');
+    } catch (error) {
+        console.error("Error creating board:", error);
+        res.status(500).send("An error occurred while creating the board.");
+    }
+});
+
 export default router;
