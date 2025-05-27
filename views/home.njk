@@ -1,0 +1,89 @@
+{% extends "base.njk" %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Bienvenido a Imageboard</h1>
+    
+    <div class="features">
+        <h2>¿Qué puedes hacer aquí?</h2>
+        <ul>
+            <li>📝 Crear hilos en diferentes tablones temáticos</li>
+            <li>🖼️ Compartir imágenes en tus hilos y comentarios</li>
+            <li>💬 Participar en discusiones</li>
+            <li>👤 Gestionar tu perfil de usuario</li>
+        </ul>
+    </div>
+
+    <div class="get-started">
+        {% if not session.userId %}
+            <h2>¿Cómo empezar?</h2>
+            <p>Para participar en la comunidad, necesitas:</p>
+            <div class="actions">
+                <a href="/register" class="btn">Registrarte</a>
+                <span>o</span>
+                <a href="/login" class="btn">Iniciar sesión</a>
+            </div>
+        {% else %}
+            <h2>¡Comienza a participar!</h2>
+            <div class="actions">
+                <a href="/boards" class="btn">Ver tablones</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .home-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .features {
+        margin: 2rem 0;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .features ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .features li {
+        margin: 1rem 0;
+        font-size: 1.1rem;
+    }
+
+    .get-started {
+        text-align: center;
+        margin: 2rem 0;
+        padding: 2rem;
+        background: #e9ecef;
+        border-radius: 8px;
+    }
+
+    .actions {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background: #0056b3;
+    }
+</style>
+{% endblock %}

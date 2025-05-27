@@ -17,11 +17,11 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const {name, password} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
+    await User.create({
         name: name,
         password: hashedPassword,
     });
-    res.status(201).json(user);
+    res.redirect('/login');
 });
 
 export default router;

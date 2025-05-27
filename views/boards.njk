@@ -1,16 +1,103 @@
 {% extends "base.njk" %}
 
 {% block content %}
-<ul>
+<div class="boards-grid">
     {% for board in boards %}
-        <li>
-            <a href="/boards/{{ board.id }}">{{ board.name }}</a>
-        </li>
+        <div class="board-card">
+            <a href="/boards/{{ board.id }}">
+                <h2>{{ board.name }}</h2>
+            </a>
+        </div>
     {% endfor %}
-</ul>
+</div>
 
-<form action="/boards" method="POST">
-    <input type="text" name="name" placeholder="New Board Name" required>
-    <button type="submit">Create Board</button>
+<form action="/boards" method="POST" class="new-board-form">
+    <input type="text" name="name" placeholder="Nuevo nombre de tablón" required autocomplete="off">
+    <button type="submit">Crear Board</button>
 </form>
+
+<style>
+.boards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.board-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.board-card:hover {
+    box-shadow: 0 4px 16px rgba(0,123,255,0.15);
+    transform: translateY(-4px) scale(1.03);
+}
+
+.board-card a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.board-card h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.new-board-form {
+    margin: 2rem auto;
+    max-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.5rem 1rem;
+}
+
+.new-board-form input {
+    flex: 2 1 200px;
+    min-width: 0;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.new-board-form button {
+    flex: 1 1 100px;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 120px;
+}
+
+@media (max-width: 600px) {
+    .new-board-form {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0.5rem;
+    }
+    .new-board-form input, .new-board-form button {
+        width: 100%;
+        min-width: 0;
+    }
+}
+</style>
 {% endblock %}

@@ -50,21 +50,28 @@ app.use("/boards", boardsRouter);
 app.use("/", pagesRouter);
 app.use("/", authRoutes);
 
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
+  res.render('home', {
+    title: "Imageboard - Inicio",
+    desc: "Bienvenido a Imageboard",
+    session: req.session
+  });
+});
+
+app.get('/users', async (req, res) => {
   const usersRaw = await User.findAll();
   const users = usersRaw.map(user => {
     return {
       id: user.id,
-      name: user.name,
-      password: user.password
+      username: user.username
     }
   });
 
   res.render('table', {
-    title: "Test nunjucks",
-    desc: "Testing my nunjucks template engine",
+    title: "Lista de Usuarios",
+    desc: "Usuarios registrados en Imageboard",
     users,
-    session: req.session 
+    session: req.session
   });
 });
 
